@@ -26,7 +26,11 @@ public class PracticeApplication {
 		GenericApplicationContext applicationContext = new GenericApplicationContext();
 	 	
 		// Spring Container 에 HelloController 라는 클래스를 활용하여 Bean 을 등록
+		// 파라미터를 주입받는 생성자가 있다면 해당 클래스도 Bean으로 등록해줘야 함
 		applicationContext.registerBean(HelloController.class);
+		// Interface 형태의 Service를 등록하는 것이 아닌, 구현체 SimpleHelloService 를 Bean으로 등록
+		// 런타임 시 구현체 SimpleHelloService 를 스캔하면서 interface class 를 상속받고있다면, Spring Container가 연관되는 클래스의 생성자 파라미터에 주입을 해줌
+		applicationContext.registerBean(SimpleHelloService.class);
 		// 등록한 Bean 정보로 Spring Container 초기화
 		applicationContext.refresh();
 		
