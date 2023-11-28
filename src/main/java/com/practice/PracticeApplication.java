@@ -27,6 +27,9 @@ public class PracticeApplication {
 			@Override
 			public void onStartup(ServletContext servletContext) throws ServletException {
 				
+				// w
+				HelloController helloController = new HelloController();
+				
 				servletContext.addServlet("FrontController", new HttpServlet() {
 
 					@Override
@@ -41,12 +44,15 @@ public class PracticeApplication {
 						
 							String name = req.getParameter("name");
 							
+							// Request에서 Parameter name을 꺼내오는 것은 요청을 받은 클래스에서 처리하도록 함
+							String ret = helloController.hello(name);
+							
 							// 응답코드 설정
 							resp.setStatus(HttpStatus.OK.value());
 							// 헤더 설정
 							resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
 							// 바디 설정
-							resp.getWriter().println("Hello Servlet " + name);
+							resp.getWriter().println(ret);
 						
 						}
 						else if(req.getRequestURI().equals("/user")) {
@@ -56,7 +62,7 @@ public class PracticeApplication {
 						} else {
 							
 							// 의도하지 않은 요청으로 들어왔을 때 응답으로 BAD_REQUEST 리턴
-							resp.setStatus(HttpStatus.BAD_REQUEST.value());
+							resp.setStatus(HttpStatus.NOT_FOUND.value());
 							
 						}
 						
