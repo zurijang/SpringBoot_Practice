@@ -6,6 +6,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -21,14 +22,20 @@ public class PracticeApplication {
 
 	public static void main(String[] args) {
 		
+		// Spring Container 생성  
+		GenericApplicationContext applicationContext = new GenericApplicationContext();
+	 	
+		// Spring Container 에 HelloController 라는 클래스를 활용하여 Bean 을 등록
+		applicationContext.registerBean(HelloController.class);
+		// 등록한 Bean 정보로 Spring Container 초기화
+		applicationContext.refresh();
+		
+		// 내부 Tomcat 실행
 		ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
 		WebServer webServer = serverFactory.getWebServer( new ServletContextInitializer() {
 
 			@Override
 			public void onStartup(ServletContext servletContext) throws ServletException {
-				
-				// w
-				HelloController helloController = new HelloController();
 				
 				servletContext.addServlet("FrontController", new HttpServlet() {
 
@@ -44,22 +51,18 @@ public class PracticeApplication {
 						
 							String name = req.getParameter("name");
 							
+							// Spring Container에 등록한 HelloController 클래스로 지정된 Bean 을 참조하여 Object 를 가져옴
+							HelloController helloController = applicationContext.getBean(HelloController.class);
 							// Request에서 Parameter name을 꺼내오는 것은 요청을 받은 클래스에서 처리하도록 함
 							String ret = helloController.hello(name);
-							
-							// 응답코드 설정
-							resp.setStatus(HttpStatus.OK.value());
-							// 헤더 설정
-							resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
+
+							// 헤더의 Content-type 설정
+							resp.setContentType(MediaType.TEXT_PLAIN_VALUE);
 							// 바디 설정
 							resp.getWriter().println(ret);
 						
-						}
-						else if(req.getRequestURI().equals("/user")) {
-							
-							
-							
-						} else {
+						} 
+						else {
 							
 							// 의도하지 않은 요청으로 들어왔을 때 응답으로 BAD_REQUEST 리턴
 							resp.setStatus(HttpStatus.NOT_FOUND.value());
