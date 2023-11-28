@@ -6,6 +6,9 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -30,9 +33,9 @@ public class PracticeApplication {
 							throws ServletException, IOException {
 
 						// 응답코드 설정
-						resp.setStatus(200);
+						resp.setStatus(HttpStatus.OK.value());
 						// 헤더 설정
-						resp.setHeader("Content-Type", "text/plain");
+						resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
 						// 바디 설정
 						resp.getWriter().println("Hello Servlet");
 						
