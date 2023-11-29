@@ -2,15 +2,12 @@ package com.practice;
 
 import java.util.Objects;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 // Class Level에 /hello 요청 지정
-@RequestMapping("/hello")
-@Controller
+@RestController
 public class HelloController {
 	
 	private final HelloService helloService;
@@ -20,8 +17,7 @@ public class HelloController {
 	}
 	
 	// Class Level 의 /hello 요청 중 Get Method 만 처리 (따로 요청을 지정하지 않았을 경우)
-	@GetMapping
-	@ResponseBody
+	@GetMapping("/hello")
 	public String hello(@RequestParam("name") String name) {
 		
 		// 파라미터 name 겁증 후 비즈니스 로직에 전달

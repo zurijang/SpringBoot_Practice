@@ -3,15 +3,19 @@ package com.practice;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.web.context.support.GenericWebApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+@Configuration
+@ComponentScan
 public class PracticeApplication {
-
+	
 	public static void main(String[] args) {
 		
 		// Spring Container 생성
-		GenericWebApplicationContext applicationContext = new GenericWebApplicationContext() {
+		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
 
 			@Override
 			protected void onRefresh() {
@@ -32,12 +36,8 @@ public class PracticeApplication {
 			
 		};
 
-		// Spring Container 에 HelloController 라는 클래스를 활용하여 Bean 을 등록
-		// 파라미터를 주입받는 생성자가 있다면 해당 클래스도 Bean으로 등록해줘야 함
-		applicationContext.registerBean(HelloController.class);
-		// Interface 형태의 Service를 등록하는 것이 아닌, 구현체 SimpleHelloService 를 Bean으로 등록
-		// 런타임 시 구현체 SimpleHelloService 를 스캔하면서 interface class 를 상속받고있다면, Spring Container가 연관되는 클래스의 생성자 파라미터에 주입을 해줌
-		applicationContext.registerBean(SimpleHelloService.class);
+		// Bean이 있는 Configuration Class 등록 (Configuration 등록)
+		applicationContext.register(PracticeApplication.class);
 		// 등록한 Bean 정보로 Spring Container 초기화
 		applicationContext.refresh();
 		
