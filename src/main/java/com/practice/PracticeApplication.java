@@ -11,7 +11,26 @@ public class PracticeApplication {
 	public static void main(String[] args) {
 		
 		// Spring Container 생성
-		GenericWebApplicationContext applicationContext = new GenericWebApplicationContext();
+		GenericWebApplicationContext applicationContext = new GenericWebApplicationContext() {
+
+			@Override
+			protected void onRefresh() {
+				
+				super.onRefresh();
+				
+				// Servlet Container 초기화
+				ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
+				WebServer webServer = serverFactory.getWebServer( servletContext -> {
+						// 전체 요청에 대해서 Spring Container의 Bean 정보를 DispatcherServlet에 전달하여 맵핑이 이루어질 수 있도록 처리 
+						servletContext.addServlet( "dispatcherServlet", new DispatcherServlet(this) ).addMapping("/*");
+				});
+				
+				// 내부 Tomcat 실행
+				webServer.start();
+				
+			}
+			
+		};
 
 		// Spring Container 에 HelloController 라는 클래스를 활용하여 Bean 을 등록
 		// 파라미터를 주입받는 생성자가 있다면 해당 클래스도 Bean으로 등록해줘야 함
@@ -22,14 +41,7 @@ public class PracticeApplication {
 		// 등록한 Bean 정보로 Spring Container 초기화
 		applicationContext.refresh();
 		
-		// 내부 Tomcat 실행
-		ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
-		WebServer webServer = serverFactory.getWebServer( servletContext -> {
-				// 전체 요청에 대해서 Spring Container의 Bean 정보를 DispatcherServlet에 전달하여 맵핑이 이루어질 수 있도록 처리 
-				servletContext.addServlet( "dispatcherServlet", new DispatcherServlet(applicationContext) ).addMapping("/*");
-		});
 		
-		webServer.start();
 		
 	}
 
