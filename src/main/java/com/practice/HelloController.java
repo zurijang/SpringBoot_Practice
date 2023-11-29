@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-// Class Level에 /hello 요청 지정
 @RestController
 public class HelloController {
 	
@@ -16,7 +15,6 @@ public class HelloController {
 		this.helloService = helloService;
 	}
 	
-	// Class Level 의 /hello 요청 중 Get Method 만 처리 (따로 요청을 지정하지 않았을 경우)
 	@GetMapping("/hello")
 	public String hello(@RequestParam("name") String name) {
 		
