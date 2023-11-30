@@ -1,7 +1,5 @@
 package com.practice;
 
-import java.util.Objects;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +16,11 @@ public class HelloController {
 	@GetMapping("/hello")
 	public String hello(@RequestParam("name") String name) {
 		
+		// null 혹은 공백만 들어올 경우 예외처리
+		if(name == null || name.trim().length() == 0) throw new IllegalArgumentException();
+		
 		// 파라미터 name 겁증 후 비즈니스 로직에 전달
-		// Objects.requireNonNull Object를 넘겨두고 만약에 Null이라면 예외를 던지고 아니면 이 값을 그대로 리턴해줌 (Null Check)
-		return helloService.sayHello(Objects.requireNonNull(name));
+		return helloService.sayHello(name);
 		
 	}
 }
