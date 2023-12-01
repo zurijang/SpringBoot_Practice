@@ -15,7 +15,6 @@ import com.config.autoconfig.TomcatWebServerConfig;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @ComponentScan
-@Configuration
 @EnableMyAutoConfiguration
 public @interface MySpringBootApplication {
  
