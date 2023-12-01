@@ -6,6 +6,8 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.config.MySpringBootApplication;
+
 @MySpringBootApplication
 public class PracticeApplication {
 	
