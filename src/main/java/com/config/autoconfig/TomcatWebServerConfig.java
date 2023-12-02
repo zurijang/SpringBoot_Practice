@@ -5,8 +5,10 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//@Configuration 에 @Component 애노테이션이 포함되어있어 @ComponentScan에 읽혀질 수 있음
-@Configuration
+import com.config.MyAutoConfiguration;
+
+// MyAutoConfiguration 이라는 기능에 의해서 사용되는 대상이라는 것을 명시
+@MyAutoConfiguration
 public class TomcatWebServerConfig {
 
 	@Bean
