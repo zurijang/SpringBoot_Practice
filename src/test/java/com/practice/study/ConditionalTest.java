@@ -4,6 +4,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Map;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ public class ConditionalTest {
 	@Test
 	void conditional() {
 		
+		/* Way 1 */
 		// Conditional :: true
 		// 1. Bean 이 등록될 Application Context 생성
 		AnnotationConfigWebApplicationContext ac = new AnnotationConfigWebApplicationContext();
@@ -35,10 +37,10 @@ public class ConditionalTest {
 		ac2.refresh();
 		
 //		MyBean bean2 = ac2.getBean(MyBean.class);
-		
 		// Config2 클래스의 Conditional이 false 로 return 되어 Bean으로 등록되지 않음
 		// 그로인해 Bean이 등록되지 않아 NoSuchBeanDefinitionException 이 발생하여 테스트 에러 발생 -> 예외를 잡도록 테스트 구성
 		
+		/* Way 2 */
 		// Config1 Configuration 에 MyBean 이 등록되어 있는지 확인
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner();
 		contextRunner.withUserConfiguration(Config1.class)
@@ -58,16 +60,14 @@ public class ConditionalTest {
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
-	@Conditional(TrueCondition.class)
-	@interface TrueConditional {}
+	@Conditional(BooleanCondition.class)
+	@interface BooleanConditional {
+		boolean value();
+	}
 	
-	@Retention(RetentionPolicy.RUNTIME)
-	@Target(ElementType.TYPE)
-	@Conditional(FalseCondition.class)
-	@interface FalseConditional {}
 	
 	@Configuration
-	@TrueConditional
+	@BooleanConditional(true)
 	static class Config1 {
 
 		@Bean
@@ -78,7 +78,7 @@ public class ConditionalTest {
 	}
 	
 	@Configuration
-	@FalseConditional
+	@BooleanConditional(false)
 	static class Config2 {
 		
 		@Bean
@@ -92,20 +92,16 @@ public class ConditionalTest {
 		
 	}
 	
-	static class TrueCondition implements Condition {
+	static class BooleanCondition implements Condition {
 
+		// metadata을 통해 annotation singel element value 를 읽을 수 있음
 		@Override
 		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-			return true;
-		}
-		
-	}
-	
-	static class FalseCondition implements Condition {
-
-		@Override
-		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-			return false;
+			
+			Map<String, Object> annotationAttributes = metadata.getAnnotationAttributes(BooleanConditional.class.getName());
+			Boolean value = (Boolean)annotationAttributes.get("value");
+			
+			return value;
 		}
 		
 	}
