@@ -1,6 +1,6 @@
 package com.config.autoconfig;
 
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Condition;
@@ -9,26 +9,26 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import com.config.MyAutoConfiguration;
-import com.config.autoconfig.TomcatWebServerConfig.TomcatCondition;
+import com.config.autoconfig.JettyWebServerConfig.JettyCondition;
 
 // MyAutoConfiguration 이라는 기능에 의해서 사용되는 대상이라는 것을 명시
 @MyAutoConfiguration
-@Conditional(TomcatCondition.class)
-public class TomcatWebServerConfig {
+@Conditional(JettyCondition.class)
+public class JettyWebServerConfig {
 
 	// 기본적으로 Bean은 Method 명을 따라가지만 충돌이 날 경우 지정가능
-	@Bean("tomcatWebServerFactory")
+	@Bean("jettyWebServerFactory")
 	public ServletWebServerFactory servletWebServerFactory() {
-		return new TomcatServletWebServerFactory();
+		return new JettyServletWebServerFactory();
 	}
 	
-	static class TomcatCondition implements Condition {
+	static class JettyCondition implements Condition {
 
 		@Override
 		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-
-			return false;
-
+			
+			return true;
+		
 		}
 		
 	}
