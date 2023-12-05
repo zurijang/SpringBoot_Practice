@@ -20,7 +20,7 @@ public class HelloApiTest {
 		TestRestTemplate rest = new TestRestTemplate();
 		
 		// Placeholder 치환자를 넣어놓고 따로 파라미터로 전달하는 방식 사용
-		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name={name}", String.class, "Spring");
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/app/hello?name={name}", String.class, "Spring");
 		
 		// Status Code : 200
 		assertThat(res.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -39,7 +39,7 @@ public class HelloApiTest {
 		TestRestTemplate rest = new TestRestTemplate();
 		
 		// Placeholder 치환자를 넣어놓고 따로 파라미터로 전달하는 방식 사용
-		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name=", String.class);
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/app/hello?name=", String.class);
 		
 		// Status Code : 500
 		assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
