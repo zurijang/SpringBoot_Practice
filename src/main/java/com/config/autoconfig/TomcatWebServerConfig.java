@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 
 import com.config.ConditionalMyOnClass;
 import com.config.MyAutoConfiguration;
@@ -17,8 +18,14 @@ public class TomcatWebServerConfig {
 	@Bean("tomcatWebServerFactory")
 	// Bean으로 등록된 Method의 반환타입과 동일한 Bean 정보가 없으면 등록 (Spring Boot Annotation)
 	@ConditionalOnMissingBean  
-	public ServletWebServerFactory servletWebServerFactory() {
-		return new TomcatServletWebServerFactory();
+	public ServletWebServerFactory servletWebServerFactory(Environment env) {
+		
+		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
+		
+		factory.setContextPath(env.getProperty("contextPath"));
+		
+		return factory;
+		
 	}
 	
 }
