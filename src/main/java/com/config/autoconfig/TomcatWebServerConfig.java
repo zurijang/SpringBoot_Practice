@@ -1,5 +1,6 @@
 package com.config.autoconfig;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
@@ -14,6 +15,9 @@ import com.config.MyAutoConfiguration;
 @ConditionalMyOnClass("org.apache.catalina.startup.Tomcat")
 public class TomcatWebServerConfig {
 
+	@Value("${contextPath}")
+	String contextPath;
+	
 	// 기본적으로 Bean은 Method 명을 따라가지만 충돌이 날 경우 지정가능
 	@Bean("tomcatWebServerFactory")
 	// Bean으로 등록된 Method의 반환타입과 동일한 Bean 정보가 없으면 등록 (Spring Boot Annotation)
@@ -22,7 +26,9 @@ public class TomcatWebServerConfig {
 		
 		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
 		
-		factory.setContextPath(env.getProperty("contextPath"));
+		System.out.println(this.contextPath);
+		
+		factory.setContextPath(this.contextPath);
 		
 		return factory;
 		
