@@ -1,3 +1,4 @@
+com.config.autoconfig.DataSourceConfig
 com.config.autoconfig.PropertyPostProcessorConfig
 com.config.autoconfig.PropertyPlaceholderConfig
 com.config.autoconfig.DispatcherServletConfig
