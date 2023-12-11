@@ -14,13 +14,6 @@ public class JdbcTemplateTest {
 	 @Autowired
 	 JdbcTemplate jdbcTemplate;
 	 
-	 @BeforeEach
-	 void init() {
-		 
-		 jdbcTemplate.execute("create table if not exists member(name varchar(50) primary key, count int)");
-		 
-	 }
-	 
 	 @Test
 	 // jdbc template, jdbc transaction manager, hikari data source 로 jdbc 자동 구성을 해주기때문에 connect 신경 X
 	 void insertAndQuery() {
