@@ -24,4 +24,8 @@ public class HelloController {
 		
 	}
 	
+	@GetMapping("/count")
+	public String count(@RequestParam("name") String name) {
+		return name + ": " + helloService.countOf(name);
+	}
 }
