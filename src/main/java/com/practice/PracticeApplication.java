@@ -1,13 +1,12 @@
 package com.practice;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import com.config.MySpringBootApplication;
 
 import jakarta.annotation.PostConstruct;
 
-@MySpringBootApplication
+@SpringBootApplication
 public class PracticeApplication {
 	
 	private final JdbcTemplate jdbcTemplate;
