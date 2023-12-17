@@ -18,9 +18,10 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-jetty'
 	implementation 'org.springframework:spring-jdbc'
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.3.1'
+	implementation group: 'org.mybatis', name: 'mybatis', version: '3.5.15'
+	implementation group: 'org.mybatis', name: 'mybatis-spring', version: '3.0.3'
 	implementation 'com.zaxxer:HikariCP:5.1.0'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
