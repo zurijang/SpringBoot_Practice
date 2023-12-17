@@ -3,6 +3,8 @@ package com.practice;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.practice.hello.HelloController;
+
 // name 파라미터 전달하는 경우의 단위테스트 진행
 public class HelloControllerTest {
 

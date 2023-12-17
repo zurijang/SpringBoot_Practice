@@ -3,6 +3,11 @@ package com.practice;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.practice.hello.Hello;
+import com.practice.hello.HelloDecorator;
+import com.practice.hello.HelloRepository;
+import com.practice.hello.SimpleHelloService;
+
 public class HelloServicetest {
 
 	private static HelloRepository helloRepositoryStub = new HelloRepository() {

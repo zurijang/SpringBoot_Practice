@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.practice.hello.HelloRepository;
+import com.practice.hello.HelloService;
+
 //설정한 빈들을 컨테이너로 로딩하는데 웹 환경을 세팅하지 않도록 설정
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Transactional

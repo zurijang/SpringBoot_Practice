@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.hello;
 
 // Repository(DAO) 기능 정의
 public interface HelloRepository {

@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.hello;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
