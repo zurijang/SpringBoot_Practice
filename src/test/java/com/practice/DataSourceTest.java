@@ -6,8 +6,12 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DataSourceTest {
+	
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Test
 	void connect() throws SQLException, ClassNotFoundException {
@@ -18,6 +22,8 @@ public class DataSourceTest {
 				"jdbc:mariadb://192.168.0.9:3306/practice",
 				"user",
 				"user");
+		
+		logger.info("Connection 객체 : " + connection + " ");
 		
 		Assertions.assertNotNull(connection);
 		
