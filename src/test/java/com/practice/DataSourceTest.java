@@ -1,24 +1,26 @@
 package com.practice;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 
-@JdbcTest
 public class DataSourceTest {
-
-	@Autowired
-	DataSource dataSource;
 	
 	@Test
-	void connect() throws SQLException {
+	void connect() throws SQLException, ClassNotFoundException {
 		
-		Connection connection = dataSource.getConnection();
+		Class.forName("org.mariadb.jdbc.Driver");
+		
+		Connection connection = DriverManager.getConnection(
+				"jdbc:mariadb://192.168.0.9:3306/practice",
+				"user",
+				"user");
+		
+		Assertions.assertNotNull(connection);
+		
 		connection.close();
 	
 	}
