@@ -1,6 +1,6 @@
 package com.practice;
 
-import java.util.Map;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,9 @@ public class BoardController {
 	@GetMapping("/list")
 	public String board() {
 		
-		logger.info("this is board list");
+		List<Board> list = boardService.selectBoardList();
+		
+		System.out.println(list);
 		
 		return "/board_list.html";
 		
@@ -41,8 +43,6 @@ public class BoardController {
 	public String registPost(Board board) {
 		
 		logger.info("this is board regist post");
-		
-		int result = boardService.insertBoard(board);
 		
 		return "redirect:/board/regist";
 		

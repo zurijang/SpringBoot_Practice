@@ -1,13 +1,19 @@
 package com.practice;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BoardService {
 
-	public int insertBoard(Board board) {
+	@Autowired
+	BoardRepository boardRepository;
+	
+	public List<Board> selectBoardList() {
 		
-		return 0;
+		return boardRepository.selectBoardList();
 		
 	}
 	
