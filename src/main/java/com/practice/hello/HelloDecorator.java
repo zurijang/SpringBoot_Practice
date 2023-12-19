@@ -1,5 +1,6 @@
 package com.practice.hello;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ public class HelloDecorator implements HelloService {
 	private final HelloService helloService;
 	
 	// HelloDecorator 기준 자기자신에 @Primary가 붙어 HelloService 오브젝트 타입의 구현체는 1개
-	public HelloDecorator(HelloService helloService) { 
+	public HelloDecorator(@Qualifier("simpleHelloService")HelloService helloService) { 
 		this.helloService = helloService;
 	}
 	

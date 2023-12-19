@@ -1,13 +1,15 @@
 package com.practice.hello;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
+@Qualifier("simpleHelloService")
 public class SimpleHelloService implements HelloService {
 
 	private final HelloRepository helloRepository;
 	
-	public SimpleHelloService(HelloRepository helloRepository) {
+	public SimpleHelloService(@Qualifier("helloRepositoryJdbc")HelloRepository helloRepository) {
 		this.helloRepository = helloRepository;
 	}
 	
