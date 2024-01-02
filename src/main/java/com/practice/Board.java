@@ -3,6 +3,8 @@ package com.practice;
 public class Board {
 
 	/* Properties */
+	/* 게시글 아이디 */
+	private String bid;
 	/* 제목 */
 	private String title;
 	/* 내용 */
@@ -10,6 +12,12 @@ public class Board {
 	
 	
 	/* Setter, Getter Method */
+	public String getBid() {
+		return bid;
+	}
+	public void setBid(String bid) {
+		this.bid = bid;
+	}
 	public String getTitle() {
 		return title;
 	}

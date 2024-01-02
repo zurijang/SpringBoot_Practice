@@ -4,7 +4,20 @@
 <mapper namespace="com.practice.BoardRepository">
 	
 	<select id="selectBoardList" resultType="com.practice.Board">
-		SELECT * FROM TB_BOARD
+		SELECT bid, title, content FROM TB_BOARD
 	</select>
+	
+	<insert id="insertBoard" parameterType="com.practice.Board">
+		INSERT INTO TB_BOARD(TITLE, CONTENT)
+		VALUES (
+			  #{title}
+			, #{content}
+		)
+	</insert>
+	
+	<delete id="deleteBoard" parameterType="java.lang.String">
+		DELETE FROM TB_BOARD
+		WHERE BID = #{bid}
+	</delete>
 	
 </mapper>

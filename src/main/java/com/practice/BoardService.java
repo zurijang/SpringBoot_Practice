@@ -12,9 +12,15 @@ public class BoardService {
 	BoardRepository boardRepository;
 	
 	public List<Board> selectBoardList() {
-		
 		return boardRepository.selectBoardList();
-		
+	}
+	
+	public int insertBoard(Board board) {
+		return boardRepository.insertBoard(board);
+	}
+	
+	public int deleteBoard(String bid) {
+		return boardRepository.deleteBoard(bid);
 	}
 	
 }

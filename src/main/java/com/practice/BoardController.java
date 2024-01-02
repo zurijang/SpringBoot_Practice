@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/board")
@@ -20,32 +22,64 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping("/list")
-	public String board() {
+	public ModelAndView board() {
+		
+		ModelAndView mav = new ModelAndView();
 		
 		List<Board> list = boardService.selectBoardList();
 		
 		System.out.println(list);
 		
-		return "/board_list.html";
+		mav.addObject("list", list);
+		
+		mav.setViewName("board_list");
+		
+		return mav;
 		
 	}
 	
 	@GetMapping("/regist")
-	public String registGet() {
+	public ModelAndView registGet() {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("board_regist");
 		
 		logger.info("this is board regist get");
 
-		return "/board_regist.html";
+		return mav;
 		
 	}
 	
 	@PostMapping("/regist")
-	public String registPost(Board board) {
+	public ModelAndView registPost(Board board) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println(board.getTitle() + " " + board.getContent());
+		
+		int result = boardService.insertBoard(board);
+		
+		mav.setViewName("redirect:/board/list");
 		
 		logger.info("this is board regist post");
 		
-		return "redirect:/board/regist";
+		return mav;
 		
+	}
+	
+	@GetMapping("/delete")
+	public ModelAndView deleteBoard(@RequestParam("bid") String bid) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println(bid);
+		
+		int result = boardService.deleteBoard(bid);
+		
+		mav.setViewName("redirect:/board/list");
+		
+		return mav;
 	}
 	
 }
