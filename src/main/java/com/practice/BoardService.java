@@ -15,6 +15,10 @@ public class BoardService {
 		return boardRepository.selectBoardList();
 	}
 	
+	public Board readBoard(String bid) {
+		return boardRepository.readBoard(bid);
+	}
+	
 	public int insertBoard(Board board) {
 		return boardRepository.insertBoard(board);
 	}

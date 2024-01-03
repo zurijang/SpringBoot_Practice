@@ -4,7 +4,20 @@
 <mapper namespace="com.practice.BoardRepository">
 	
 	<select id="selectBoardList" resultType="com.practice.Board">
-		SELECT bid, title, content FROM TB_BOARD
+		SELECT 
+			  BID
+			, TITLE
+			, CONTENT
+		FROM TB_BOARD
+	</select>
+	
+	<select id="readBoard" parameterType="java.lang.String" resultType="com.practice.Board">
+		SELECT 
+			  BID
+			, TITLE
+			, CONTENT 
+		FROM TB_BOARD
+		WHERE BID = #{bid}
 	</select>
 	
 	<insert id="insertBoard" parameterType="com.practice.Board">

@@ -38,6 +38,21 @@ public class BoardController {
 		
 	}
 	
+	@GetMapping("/detail")
+	public ModelAndView readBoard(@RequestParam("bid") String bid) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		Board board = boardService.readBoard(bid);
+		
+		mav.addObject("board", board);
+		
+		mav.setViewName("board_detail");
+		
+		return mav;
+		
+	}
+	
 	@GetMapping("/regist")
 	public ModelAndView registGet() {
 		

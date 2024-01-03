@@ -12,6 +12,9 @@ public interface BoardRepository {
 	// 게시판 목록 조회
 	List<Board> selectBoardList();
 	
+	// 게시판 게시글 상세조회
+	Board readBoard(String bid);
+	
 	// 게시판 게시글 등록
 	int insertBoard(Board board);
 

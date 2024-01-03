@@ -10,17 +10,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>board_regist</h1>
-	<form action="/board/regist" method="post">
-		<div>
-			제목 <input type="text" name="title" />
-		</div>
-		<div>
-			내용 <input type="text" name="content" />
-		</div>
-		<div>
-			<button type="submit">등록</button>
-		</div>
-	</form>
+	<div>
+		<h1>게시글 상세보기</h1>
+	</div>
+	<div>
+		<table>
+			<tr>
+				<th>BID</th>
+				<td>${board.bid}</td>
+				<th>제목</th>
+				<td>${board.title}</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td colspan="3">${board.content}</td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<a href="/board/delete/${board.bid}">삭제</a>
+		<a href="/board/list">목록</a>
+	</div>
 </body>
 </html>
