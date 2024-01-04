@@ -1,9 +1,11 @@
-package com.practice;
+package com.practice.board;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import com.practice.vo.Board;
 
 @Mapper
 @Repository

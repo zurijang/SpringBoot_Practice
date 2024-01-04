@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.vo;
 
 public class Board {
 

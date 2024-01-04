@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.board;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.practice.vo.Board;
 
 @Controller
 @RequestMapping("/board")
@@ -32,7 +34,7 @@ public class BoardController {
 		
 		mav.addObject("list", list);
 		
-		mav.setViewName("board_list");
+		mav.setViewName("board/board_list");
 		
 		return mav;
 		
@@ -47,7 +49,7 @@ public class BoardController {
 		
 		mav.addObject("board", board);
 		
-		mav.setViewName("board_detail");
+		mav.setViewName("board/board_detail");
 		
 		return mav;
 		
@@ -58,7 +60,7 @@ public class BoardController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("board_regist");
+		mav.setViewName("board/board_regist");
 		
 		logger.info("this is board regist get");
 

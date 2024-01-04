@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.practice.BoardRepository">
+<mapper namespace="com.practice.board.BoardRepository">
 	
-	<select id="selectBoardList" resultType="com.practice.Board">
+	<select id="selectBoardList" resultType="com.practice.vo.Board">
 		SELECT 
 			  BID
 			, TITLE
@@ -11,7 +11,7 @@
 		FROM TB_BOARD
 	</select>
 	
-	<select id="readBoard" parameterType="java.lang.String" resultType="com.practice.Board">
+	<select id="readBoard" parameterType="java.lang.String" resultType="com.practice.vo.Board">
 		SELECT 
 			  BID
 			, TITLE
@@ -20,7 +20,7 @@
 		WHERE BID = #{bid}
 	</select>
 	
-	<insert id="insertBoard" parameterType="com.practice.Board">
+	<insert id="insertBoard" parameterType="com.practice.vo.Board">
 		INSERT INTO TB_BOARD(TITLE, CONTENT)
 		VALUES (
 			  #{title}
