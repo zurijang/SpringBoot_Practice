@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.practice.vo.Board;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/board")
 public class BoardController {
@@ -24,77 +26,109 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping("/list")
-	public ModelAndView board() {
+	public ModelAndView board(HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		List<Board> list = boardService.selectBoardList();
+		if(session.getAttribute("sessionInfo") == null) {
+			
+			mav.setViewName("redirect:/login");
+
+		} else {
 		
-		System.out.println(list);
+			List<Board> list = boardService.selectBoardList();
+			
+			mav.addObject("list", list);
+			mav.setViewName("board/board_list");
 		
-		mav.addObject("list", list);
-		
-		mav.setViewName("board/board_list");
+		}
 		
 		return mav;
 		
 	}
 	
 	@GetMapping("/detail")
-	public ModelAndView readBoard(@RequestParam("bid") String bid) {
+	public ModelAndView readBoard(HttpSession session, @RequestParam("bid") String bid) {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		Board board = boardService.readBoard(bid);
+		if(session.getAttribute("sessionInfo") == null) {
+			
+			mav.setViewName("redirect:/login");
+
+		} else {
 		
-		mav.addObject("board", board);
+			Board board = boardService.readBoard(bid);
 		
-		mav.setViewName("board/board_detail");
+			mav.addObject("board", board);
+			mav.setViewName("board/board_detail");
+		
+		}
 		
 		return mav;
 		
 	}
 	
 	@GetMapping("/regist")
-	public ModelAndView registGet() {
+	public ModelAndView registGet(HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("board/board_regist");
-		
-		logger.info("this is board regist get");
+		if(session.getAttribute("sessionInfo") == null) {
+			
+			mav.setViewName("redirect:/login");
 
+		} else {
+		
+			mav.setViewName("board/board_regist");
+		
+			logger.info("this is board regist get");
+
+		}
+		
 		return mav;
 		
 	}
 	
 	@PostMapping("/regist")
-	public ModelAndView registPost(Board board) {
+	public ModelAndView registPost(HttpSession session, Board board) {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		System.out.println(board.getTitle() + " " + board.getContent());
+		if(session.getAttribute("sessionInfo") == null) {
+			
+			mav.setViewName("redirect:/login");
+
+		} else {
 		
-		int result = boardService.insertBoard(board);
+			int result = boardService.insertBoard(board);
+			
+			mav.setViewName("redirect:/board/list");
+			
+			logger.info("this is board regist post");
 		
-		mav.setViewName("redirect:/board/list");
-		
-		logger.info("this is board regist post");
-		
+		}
+			
 		return mav;
 		
 	}
 	
 	@GetMapping("/delete")
-	public ModelAndView deleteBoard(@RequestParam("bid") String bid) {
+	public ModelAndView deleteBoard(HttpSession session, @RequestParam("bid") String bid) {
 		
 		ModelAndView mav = new ModelAndView();
+
+		if(session.getAttribute("sessionInfo") == null) {
+			
+			mav.setViewName("redirect:/login");
+
+		} else {		
 		
-		System.out.println(bid);
+			int result = boardService.deleteBoard(bid);
 		
-		int result = boardService.deleteBoard(bid);
+			mav.setViewName("redirect:/board/list");
 		
-		mav.setViewName("redirect:/board/list");
+		}
 		
 		return mav;
 	}
