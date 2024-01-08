@@ -51,6 +51,7 @@ public class LoginController {
 		} else {
 		
 		session.setAttribute("sessionInfo", selectedMember);
+		session.setMaxInactiveInterval(600);
 		mav.setViewName("redirect:/board/list");
 		
 		}
