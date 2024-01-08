@@ -1,6 +1,7 @@
 package com.practice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.practice.vo.Member;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -89,6 +91,27 @@ public class LoginController {
 		
 			int result = loginService.insertMember(member);
 			mav.setViewName("redirect:/login");
+			
+		}
+		
+		return mav;
+		
+	}
+	
+	@PostMapping("/logout")
+	public ModelAndView processLogout(HttpSession session, HttpServletRequest request, Member member) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(session.getAttribute("sessionInfo") != null) {
+			
+			session.invalidate();
+			mav.setViewName("redirect:/login");
+			
+		} else {
+			
+			String referer = request.getHeader("Referer");
+			mav.setViewName(referer);
 			
 		}
 		

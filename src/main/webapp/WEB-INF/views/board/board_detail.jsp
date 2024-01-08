@@ -9,9 +9,23 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
+<script>
+	function logout() {
+		
+		$.ajax({
+			type: 'post',
+			url: '/logout',
+			success : function(data) {
+				location.reload(true);
+			}
+		})
+		
+	}
+</script>
 <body>
 	<div>
 		<h1>게시글 상세보기</h1>
+		<a href="javascript:logout();">로그아웃</a>
 	</div>
 	<div>
 		<table>
