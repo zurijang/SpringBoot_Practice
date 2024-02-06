@@ -42,6 +42,8 @@ public class LoginController {
 		
 		ModelAndView mav = new ModelAndView();
 		
+		System.out.println(member.getPassword());
+		
 		Member selectedMember = loginService.selectMemberInfo(member);
 		
 		if(selectedMember == null) {
@@ -83,6 +85,8 @@ public class LoginController {
 	public ModelAndView processSignup(HttpSession session, Member member) {
 		
 		ModelAndView mav = new ModelAndView();
+		
+		System.out.println(member.getPassword());
 		
 		if(session.getAttribute("sessionInfo") != null) {
 		

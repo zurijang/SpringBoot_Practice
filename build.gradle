@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
 	implementation 'org.springframework:spring-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.1'
 	
@@ -29,6 +30,8 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+	
+	implementation 'org.jasypt:jasypt:1.9.2'
 	
 	compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
