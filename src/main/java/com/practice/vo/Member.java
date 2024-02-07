@@ -1,7 +1,12 @@
 package com.practice.vo;
 
-public class Member {
+import org.jasypt.encryption.StringEncryptor;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
+import com.practice.config.JasyptConfig;
+
+public class Member {
+	
 	/* 회원아이디 */
 	private int mid;
 	/* 이메일 */
@@ -26,7 +31,8 @@ public class Member {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		StringEncryptor jasypt = new JasyptConfig().stringEncryptor();
+		this.password = jasypt.encrypt(password);
 	}
 	
 }

@@ -82,11 +82,9 @@ public class LoginController {
 	}
 	
 	@PostMapping("/signup")
-	public ModelAndView processSignup(HttpSession session, Member member) {
+	public ModelAndView processSignup(HttpServletRequest request, HttpSession session, Member member) {
 		
 		ModelAndView mav = new ModelAndView();
-		
-		System.out.println(member.getPassword());
 		
 		if(session.getAttribute("sessionInfo") != null) {
 		

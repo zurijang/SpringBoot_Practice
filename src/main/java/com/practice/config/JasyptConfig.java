@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 public class JasyptConfig {
 
 	private String algorithm = "PBEWithMD5AndDES";
-	
-	@Bean("jasyptStringEncryptor")
-	public StringEncryptor stringEncryptor() {
+
+    @Bean("jasyptStringEncryptor")
+    public StringEncryptor stringEncryptor() {
 		PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
 		SimpleStringPBEConfig config = new SimpleStringPBEConfig();
 		config.setPassword("1q2w3e4r!");
@@ -23,6 +23,6 @@ public class JasyptConfig {
 		config.setPoolSize("1");
 		encryptor.setConfig(config);
 		return encryptor;
-		
 	}
+    
 }

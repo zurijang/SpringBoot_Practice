@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.practice.vo.Board;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
