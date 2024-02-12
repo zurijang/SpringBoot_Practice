@@ -10,7 +10,7 @@
 			, PASSWORD
 		  FROM TB_MEMBER
 		 WHERE EMAIL     =  #{email}
-		   AND PASSWORD  =  #{password}
+		   /* AND PASSWORD  =  #{password} */
 	</select>
 	
 	<insert id="insertMember" parameterType="com.practice.vo.Member">

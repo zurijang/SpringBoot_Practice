@@ -1,6 +1,7 @@
 package com.practice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.practice.vo.Member;
@@ -11,16 +12,28 @@ public class LoginService {
 	@Autowired
 	LoginRepository loginRepository;
 	
+	@Autowired
+	BCryptPasswordEncoder encoder;
+	
 	public Member selectMemberInfo(Member member) {
 		
 		Member memberInfo = loginRepository.selectMemberInfo(member);
 		
-		return memberInfo;
+		if( encoder.matches(member.getPassword(), memberInfo.getPassword() ) ) {
+			return memberInfo;
+		} else {
+			return null;
+		}
 		
 	}
 	
 	public int insertMember(Member member) {
-		return loginRepository.insertMember(member);
+		
+		Member newMember = new Member();
+		newMember.setEmail( member.getEmail() );
+		newMember.setPassword( encoder.encode( member.getPassword() ) );
+		
+		return loginRepository.insertMember(newMember);
 	}
 	
 }
