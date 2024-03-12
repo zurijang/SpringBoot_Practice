@@ -1,14 +1,14 @@
 package com.zurijang.base;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@RestController
+@Controller	
 public class TestController {
 
-	@RequestMapping("/test")
+	@GetMapping("/test")
 	public String test() {
-		return "Test String";
+		return "test";
 	}
 	
 }
